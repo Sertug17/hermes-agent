@@ -167,3 +167,23 @@ Common property formats for database items:
 - Use `is_inline: true` when creating data sources to embed them in pages
 - Add `-s` flag to curl to suppress progress bars (cleaner output for Hermes)
 - Pipe output through `jq` for readable JSON: `... | jq '.results[0].properties'`
+
+## Architecture & Execution Model
+
+This skill operates at the command layer using `curl` to interact directly with the Notion API.
+
+It does not rely on a dedicated Python backend tool within `tools/` and instead executes HTTP requests from the terminal environment.
+
+Execution modes include:
+
+1. Terminal-driven API calls via `curl`
+2. LLM-guided command generation
+3. Optional piping to utilities like `jq` for structured output
+
+If future updates introduce a native Python tool or MCP-based connector for Notion,
+this documentation may be updated to reflect the new execution model.
+
+This section is intended to clarify the distinction between:
+
+- Skill-level integrations (prompt + shell command execution)
+- Native tool-level integrations (Python registry tools)
