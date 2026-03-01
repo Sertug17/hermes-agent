@@ -2087,7 +2087,8 @@ class AIAgent:
         _is_openrouter = "openrouter" in self.base_url.lower()
         _is_nous = "nousresearch" in self.base_url.lower()
 
-        if _is_openrouter or _is_nous:
+        _is_mistral = "api.mistral.ai" in self.base_url.lower()
+        if (_is_openrouter or _is_nous) and not _is_mistral:
             if self.reasoning_config is not None:
                 extra_body["reasoning"] = self.reasoning_config
             else:
