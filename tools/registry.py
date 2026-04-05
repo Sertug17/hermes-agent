@@ -97,10 +97,14 @@ class ToolRegistry:
                     if not entry.check_fn():
                         if not quiet:
                             logger.debug("Tool %s unavailable (check failed)", name)
+                        else:
+                            logger.warning("Tool %s unavailable (check failed); subagent will not have access", name)
                         continue
                 except Exception:
                     if not quiet:
                         logger.debug("Tool %s check raised; skipping", name)
+                    else:
+                        logger.warning("Tool %s check raised exception; subagent will not have access", name, exc_info=True)
                     continue
             result.append({"type": "function", "function": entry.schema})
         return result
